@@ -42,6 +42,9 @@ class Post(models.Model):
     def preview(self):
         return self.text[:124] + '...' if len(self.text) > 124 else self.text
 
+    def __str__(self):
+        return f'{self.author.user.username} : {self.header}'
+
 
 class PostCategory(models.Model):
 
