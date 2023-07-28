@@ -15,6 +15,9 @@ class Author(models.Model):
         self.rating = posts_rating + authors_comments_rating + post_comments_rating
         self.save()
 
+    def __str__(self):
+        return f'{self.user.username}'
+
 
 class Category(models.Model):
 
