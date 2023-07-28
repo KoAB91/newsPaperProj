@@ -1,0 +1,25 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %} Posts {% endblock title %}
+
+{% block content %}
+    <h1>Поиск новостей</h1>
+    <hr>
+    <form method="GET">
+      {{ filter.form }}
+      <input type="submit" value="Найти">
+    </form>
+
+    {% if filter.qs %}
+        {% for post in filter.qs %}
+            <div>{{ post.header|censor }}</div>
+            <div>{{ post.date|date:'d M Y' }}</div>
+            <div>{{ post.text|truncatechars:20|censor }}</div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h2>Таких новостей не найдено!</h2>
+    {% endif%}
+
+{% endblock content %}

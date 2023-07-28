@@ -1,0 +1,18 @@
+% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+<h2>Вы действительно хотите удалить данную новость?</h2>
+<h2>{{ post.header|censor }}</h2>
+<h4>{{ post.date|date:'d M Y' }}</h4>
+<div>{{ post.text|censor }}</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить">
+</form>
+{% endblock content %}

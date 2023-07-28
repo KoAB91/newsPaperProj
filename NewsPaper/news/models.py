@@ -45,6 +45,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.author.user.username} : {self.header}'
 
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
 
 class PostCategory(models.Model):
 
