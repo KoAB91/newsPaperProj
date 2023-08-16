@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .models import Post
 from  .filters import PostFilter
@@ -34,14 +35,16 @@ class PostSearchView(ListView):
         return context
 
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'post_add.html'
     form_class = PostForm
+    permission_required = ('news.add_post',)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'post_add.html'
     form_class = PostForm
+    permission_required = ('news.change_post',)
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
