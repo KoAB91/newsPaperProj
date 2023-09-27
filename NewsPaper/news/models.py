@@ -22,6 +22,16 @@ class Author(models.Model):
 class Category(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
+    subscribers = models.ManyToManyField(User, through='UserCategory')
+
+    def __str__(self):
+        return self.name
+
+
+class UserCategory(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class Post(models.Model):
@@ -44,6 +54,9 @@ class Post(models.Model):
 
     def preview(self):
         return self.text[:124] + '...' if len(self.text) > 124 else self.text
+
+    def email_preview(self):
+        return self.text[:50] + '...' if len(self.text) > 50 else self.text
 
     def __str__(self):
         return f'{self.author.user.username} : {self.header}'

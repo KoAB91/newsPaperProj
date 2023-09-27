@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+from news.models import Author
+
 
 # Create your views here.
 
@@ -22,4 +24,6 @@ def upgrade_me(request):
     authors_group = Group.objects.get(name='authors')
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
+        author = Author(user=user)
+        author.save()
     return redirect('/accounts/profile/')

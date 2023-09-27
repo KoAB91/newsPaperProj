@@ -10,8 +10,8 @@ Profile
 <div> Здесь может содержаться персональная информация для каждого пользователя </div>
 
 {% if is_not_author %}
-<button> <a href="/accounts/upgrade/"> Стать автором!</a> </button>
+    <p class="text-center"><a href="/accounts/upgrade/" class="btn btn-secondary btn-sm"> Стать автором!</a> </p>
 {% endif %}
 
-<button> <a href="/sign/logout/">Выйти</a> </button>
+<p class="text-center"> <a href="/sign/logout/" class="btn btn-secondary btn-sm">Выйти</a> </p>
 {% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %} Category {% endblock title %}
+
+{% block content %}
+    <h1>Новости в категории {{ category.name }}</h1>
+    {% if not_subscribed %}
+        <hr>
+        <p class="text-center"> <a href="{% url 'category_subscribe' category.id %}" class="btn btn-secondary btn-sm"> Подписаться</a> </p>
+    {% endif %}
+    <hr>
+
+    {% if posts %}
+        {% for post in posts %}
+            <a href="{% url 'post' post.id %}">{{ post.header|censor }}</a>
+            <div>{{ post.date|date:'d M Y' }}</div>
+            <div>{{ post.text|truncatechars:20|censor }}</div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h2>В данной категории новостей не найдено!</h2>
+    {% endif%}
+
+{% endblock content %}

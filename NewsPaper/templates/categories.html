@@ -2,30 +2,20 @@
 {% load custom_filters %}
 
 {% block title %}
-Posts
+Categories
 {% endblock title %}
 
 {% block content %}
-    <br>
-    <a href="{% url 'post_add' %}" class="btn btn-secondary btn-sm">Добавить новую новость</a>
-    <a href="{% url 'post_search' %}" class="btn btn-secondary btn-sm">Поиск</a> <br>
-    <h1>Все новости ({{posts|length}})</h1>
+    <h1>Все новостые категории ({{categories|length}})</h1>
     <hr>
-    <ul class="list-group list-group-flush">
-        {% if posts %}
-        {% for post in posts %}
-            <li class="list-group-item">
-                <small class="fw-bold">{{ post.date|date:'d M Y' }}</small>
-                <a href="{% url 'post' post.id %}">{{ post.header|censor }}</a>
-                <p>{{ post.text|truncatechars:20|censor }}</p>
-                <a href="{% url 'post_edit' post.id %}" class="btn btn-secondary btn-sm">Редактировать</a>
-                <a href="{% url 'post_delete' post.id %}" class="btn btn-secondary btn-sm">Удалить</a>
-            </li>
+    {% if categories %}
+        {% for category in categories %}
+            <a href="{% url 'category' category.id %}">{{ category.name|censor }}</a>
+            <hr>
         {% endfor %}
     {% else %}
-        <h2>Новостей нет!</h2>
+        <h2>Категорий нет!</h2>
     {% endif%}
-    </ul>
 
     {% if is_paginated %}
         {% if page_obj.has_previous %}
