@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForm
+from .tasks import send_notifications
 # Create your views here.
 
 
@@ -40,6 +41,12 @@ class PostCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'post_add.html'
     form_class = PostForm
     permission_required = ('news.add_post',)
+    
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.save()
+        send_notifications.delay(post.pk)
+        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
