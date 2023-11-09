@@ -12,48 +12,51 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-           <div class="container">
-               <a class="navbar-brand" href="/news/">News Portal</a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse"
-                       data-target="#navbarResponsive"
-                       aria-controls="navbarResponsive" aria-expanded="false"
-                       aria-label="Toggle navigation">
-                   <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarResponsive">
-                   <ul class="navbar-nav ml-auto">
-                       <li class="nav-item active">
-                           <a class="nav-link" href="/news/">Home
-                               <span class="sr-only">(current)</span>
-                           </a>
-                       </li>
-                       <li class="nav-item active">
-                           <a class="nav-link" href="/news/search/">Search
-                           </a>
-                       </li>
-                       <li class="nav-item active">
-                           <a class="nav-link" href="/news/categories/">Categories
-                           </a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="/about/">About</a>
-                       </li>
-                       <li class="nav-item">
-                           <a class="nav-link" href="/contacts/">Contact</a>
-                       </li>
-                       <li class="nav-item">
-                           {% if request.user.is_authenticated %}
-                                <a class="nav-link" href="/accounts/profile/">Profile</a>
-                           {% else %}
-                                <a class="nav-link" href="/sign/login/">Sign in</a>
-                           {% endif %}
-                       </li>
+        {% load cache %}
+        {% cache 300 navbar %}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+               <div class="container">
+                   <a class="navbar-brand" href="/news/">News Portal</a>
+                   <button class="navbar-toggler" type="button" data-toggle="collapse"
+                           data-target="#navbarResponsive"
+                           aria-controls="navbarResponsive" aria-expanded="false"
+                           aria-label="Toggle navigation">
+                       <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="collapse navbar-collapse" id="navbarResponsive">
+                       <ul class="navbar-nav ml-auto">
+                           <li class="nav-item active">
+                               <a class="nav-link" href="/news/">Home
+                                   <span class="sr-only">(current)</span>
+                               </a>
+                           </li>
+                           <li class="nav-item active">
+                               <a class="nav-link" href="/news/search/">Search
+                               </a>
+                           </li>
+                           <li class="nav-item active">
+                               <a class="nav-link" href="/news/categories/">Categories
+                               </a>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link" href="/about/">About</a>
+                           </li>
+                           <li class="nav-item">
+                               <a class="nav-link" href="/contacts/">Contact</a>
+                           </li>
+                           <li class="nav-item">
+                               {% if request.user.is_authenticated %}
+                                    <a class="nav-link" href="/accounts/profile/">Profile</a>
+                               {% else %}
+                                    <a class="nav-link" href="/sign/login/">Sign in</a>
+                               {% endif %}
+                           </li>
 
-                   </ul>
+                       </ul>
+                   </div>
                </div>
-           </div>
-        </nav>
+            </nav>
+        {% endcache %}
         <!-- Page content-->
         <div class="container">
             <div class="row">
